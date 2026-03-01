@@ -1,2 +1,2 @@
-https://rickandmortyapi.com/api/
-Author: RevolShen
+By: @RevolShen
+Application uses https://rickandmortyapi.com/api/
