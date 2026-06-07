@@ -1,5 +1,6 @@
 package pl.revolshen.simpleapp
 
+/*
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
@@ -10,35 +11,35 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import pl.revolshen.simpleapp.data.models.SerialCharacter
+import pl.revolshen.simpleapp.data.models.SerialHero
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repo = Repository(application)
 
-    private val _character = MutableStateFlow<SerialCharacter?>(null) //sealed class instead
-    //    val character = _character.asStateFlow()
-    val character: StateFlow<SerialCharacter?> = _character.asStateFlow()
+    private val _hero = MutableStateFlow<SerialHero?>(null) //sealed class instead
+    //    val hero = _hero.asStateFlow()
+    val hero: StateFlow<SerialHero?> = _hero.asStateFlow()
 
-    fun performFetchSingleCharacter(id: Int) = viewModelScope.launch {
-        val local = repo.getCharacter(id).first()
+    fun performFetchSingleHero(id: Int) = viewModelScope.launch {
+        val local = repo.getHero(id).first()
 
         if (local != null) {
             Log.d("PROCESS_D", "Local source")
-            _character.update { local }
+            _hero.update { local }
             return@launch
         }
 
-        val remote = repo.loadCharacter(id)
+        val remote = repo.loadHero(id)
 
         if (remote.isSuccessful) {
             Log.d("PROCESS_D", "Remote source")
             val data = remote.body()
 
             if (data != null) {
-                _character.update { data }
+                _hero.update { data }
                 repo.insertAll(listOf(data))
             }
         }
     }
-}
+}*/
