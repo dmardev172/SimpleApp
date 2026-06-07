@@ -32,9 +32,23 @@ class NetworkMonitorImpl(context: Context) : NetworkMonitor {
 
         connectivityManager.registerNetworkCallback(request, callback)
 
-        val current = connectivityManager.activeNetwork != null
+//        val current = connectivityManager.activeNetwork != null
+        val network = connectivityManager.activeNetwork
+        val capabilities = connectivityManager.getNetworkCapabilities(network)
+        val isConnected =
+            capabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
 
-        trySend(current)
+        // ANOTHER STAR for Junior Android Dev
+        // This will prevent you from considering a Wi-Fi network as "online" without internet access.
+        /*val isConnected =
+            capabilities?.hasCapability(
+                NetworkCapabilities.NET_CAPABILITY_INTERNET
+            ) == true &&
+                    capabilities.hasCapability(
+                        NetworkCapabilities.NET_CAPABILITY_VALIDATED
+                    )*/
+
+        trySend(isConnected) //trySend(current)
 
         awaitClose {
             connectivityManager.unregisterNetworkCallback(callback)
